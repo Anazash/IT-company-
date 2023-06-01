@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <title>My Website</title>
+</head>
+<style>
+  /* Custom CSS */
+
+  .navbar {
+    background-color: #013456;
+    padding: 30px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+  }
+
+  .nav-link {
+    color: #fff;
+    transition: color 0.3s;
+    border-right: 1px solid rgb(179, 175, 175);
+    font-weight: bold;
+  }
+
+  .nav-link:hover {
+    color: #ffc107;
+    transform: scale(1.1);
+  }
+
+  /* Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .nav-item {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+
+  .banner {
+    background-image: url("static/image/it.jpg");
+    background-size: cover;
+    padding: 10% 5%;
+  }
+
+  .banner-text {
+    color: #ffc107;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-left: 10px;
+  }
+
+  .banner-heading {
+    font-size: 4vw;
+    font-weight: bold;
+    margin-bottom: 20px;
+    background-color: #373d8842;
+    padding: 10px;
+  }
+
+  .banner-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .banner-button {
+    background-color: #ffc107;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 5px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+  }
+
+  .banner-button:hover {
+    background-color: #e6a400;
+  }
+
+  .banner-button i {
+    margin-right: 5px;
+  }
+
+  .card {
+    width: 100%;
+    height: 100%;
+    margin-top: -60px;
+    background-color: #f8f9fa;
+    border: none;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s;
+  }
+
+  .card:hover {
+    transform: scale(1.1);
+  }
+
+  .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .card:hover .card-overlay {
+    opacity: 1;
+  }
+
+  .card-heading {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .card-heading-title {
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .card-title {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  @media (max-width: 767px) {
+    .card {
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+  }
+
+  .animated-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Adjust the height as needed */
+  }
+
+  .animated-image img {
+    max-width: 80%;
+    /* Set the maximum width to 100% */
+    max-height: 100%;
+    /* Set the maximum height to 100% */
+    width: auto;
+    /* Allow the width to adjust based on the image's aspect ratio */
+    height: auto;
+    /* Allow the height to adjust based on the image's aspect ratio */
+    animation: rotate 10s infinite linear;
+    /* Animation properties */
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+      /* Starting rotation */
+    }
+
+    100% {
+      transform: rotate(360deg);
+      /* Ending rotation */
+    }
+  }
+
+  .heading {
+    text-align: center;
+    font-size: 30px;
+    color: #545151;
+    padding: 25px;
+    margin-bottom: 30px;
+    transition: background-color 0.9s ease;
+    font-family: 'Times New Roman', Times, serif;
+    border-radius: 2px;
+    position: relative;
+    font-weight: 900;
+  }
+
+  .heading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 3px;
+    background-color: #b68711;
+    /* Underline color */
+    transition: transform 0.3s ease;
+    /* Underline animation transition */
+    transform-origin: center;
+    transform: scaleX(0);
+    /* Initial underline width */
+  }
+
+  .heading:hover::after {
+    transform: scaleX(0.5);
+    /* Final underline width on hover */
+  }
+
+  .company-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+
+  .company-logo {
+    width: 100px;
+    height: 40px;
+    margin-right: 30px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    transition: transform 0.5s ease;
+    /* Animation transition */
+  }
+
+  .company-logo:hover {
+    transform: scale(1.6);
+    /* Animation effect on hover */
+  }
+
+  @media (max-width: 768px) {
+    .company-logo {
+      width: 80px;
+      height: 48px;
+      margin-right: 20px;
+      margin-left: 20px;
+      margin-bottom: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .company-logo {
+      width: 60px;
+      height: 36px;
+      margin-right: 10px;
+      margin-left: 10px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .card-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  .card1 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 50px;
+    width: 45%;
+    max-width: 580px;
+    height: 45%;
+    transition: transform 0.3s;
+  }
+
+  .card1:hover {
+    transform: scale(1.1);
+  }
+
+  .image-section {
+    width: 90%;
+    height: 90%;
+    margin-bottom: 10px;
+  }
+
+  .image-section img {
+    width: 90%;
+
+    object-fit: cover;
+    border-radius: 5px;
+  }
+
+  .content {
+    text-align: center;
+  }
+
+  .content h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+
+  .content p {
+    margin-bottom: 10px;
+  }
+
+  .view-more {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+  }
+
+  .view-more:hover {
+    background-color: #70aced;
+  }
+
+  .card-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 90%;
+    margin-left: 70px;
+  }
+
+  .card2 {
+    width: calc(25% - 20px);
+    height: 450px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+    margin-bottom: 20px;
+  }
+
+  .card2:hover {
+    transform: scale(1.05);
+  }
+
+  .card2 img {
+    width: 100%;
+    height: 330px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  .card2 h3 {
+    margin: 0;
+  }
+
+  .social-icons {
+    margin-top: 20px;
+  }
+
+  .social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    color: #333;
+    font-size: 20px;
+    transition: color 0.3s;
+  }
+
+  .social-icons a:hover {
+    color: #ff7f50;
+  }
+
+  /* Media Queries */
+
+  @media (max-width: 768px) {
+
+    .card1,
+    .card2 {
+      width: 100%;
+      max-width: none;
+      height: auto;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .card-container {
+      margin-left: 0;
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    .banner-heading {
+      font-size: 6vw;
+      font-weight: bold;
+      margin-bottom: 20px;
+      background-color: #3d4c96ac;
+      padding: 5x;
+      text-align: center;
+    }
+  }
+
+  /* Add this CSS code to your existing styles */
+
+  .animation-container {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  #transition-text {
+    font-size: 30px;
+    font-weight: 500;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    animation: slide-in 8s linear infinite alternate;
+  }
+
+  @keyframes slide-in {
+    0% {
+      transform: translateX(-10%);
+      opacity: 0;
+    }
+
+    50% {
+      opacity: 1;
+    }
+
+  }
+
+  .logo {
+    max-height: 35px;
+    /* Adjust the height as needed */
+    transition: transform 0.3s ease-in-out;
+    /* Animation transition */
+  }
+
+  .logo:hover {
+    transform: rotate(360deg);
+    /* Example animation, modify as desired */
+  }
+
+  .contact-icon {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #266eae;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  .contact-icon:hover {
+    transform: scale(1.1);
+  }
+
+  .popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    width: 400px;
+    height: 200px;
+    color: white;
+    background-color: #266eae;
+  }
+
+  .popup-content {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .popup h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .popup p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: white;
+    font-size: 24px;
+  }
+
+  .popup-close:hover {
+    color: #333333;
+  }
+</style>
+<body>
+  <nav class="navbar navbar-expand-lg   ">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="static/image/za.png" alt="Logo" class="logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" style="color: white;"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'about' %}">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#services">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'portfolio' %}">Portfolio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#team">Team</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog' %}">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'signup' %}">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fab fa-facebook"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fab fa-twitter"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fab fa-instagram"></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <br><br><br><br>
+
+
+  <div class="banner">
+    <div class="banner-text">
+      <h2 class="banner-heading">Welcome to INTER SET</h2>
+      <!-- <p style="color: rgb(20, 9, 88);  font-family: cursive;font-weight: 600; background-color:#ffc107">Enter Your New World</p> -->
+    </div>
+    <div class="banner-buttons">
+      <button class="banner-button">
+        <i class="fas fa-play"></i> Watch Video
+      </button>
+      <button class="banner-button">
+        <i class="fas fa-arrow-right"></i> Get Started
+      </button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <a href="{% url 'portfolio' %}">
+            <img src="static/image/a.png" alt="Image 1">
+            <div class="card-overlay">
+              <h3 class="card-title">Check out <br>our "portfolio" to <br>know our concepts</h3>
+            </div>
+            <div class="card-heading">
+              <h3 class="card-heading-title">PORTFOLIO</h3>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <a href="{% url 'blog' %}">
+            <img src="static/image/vv.png" alt="Image 2">
+            <div class="card-overlay">
+              <h3 class="card-title">Check out <br>our "blogs" to <br>know our views</h3>
+            </div>
+            <div class="card-heading">
+              <h3 class="card-heading-title">BLOGS</h3>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <a href="{% url 'contact' %}">
+            <div class="card-image">
+              <img src="static/image/bb.png" alt="Image 3">
+              <div class="card-overlay">
+                <h3 class="card-title">Check out <br>our "Contact" to <br>know our support</h3>
+              </div>
+              <div class="card-heading">
+                <h3 class="card-heading-title">CONTACT</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br>
+  <div class="animated-image">
+    <img src="static/image/d.png" alt="Animated Image">
+  </div>
+  <br><br><br><br><br><br>
+  <div style="background-color: rgba(237, 236, 236, 0.573);">
+    <br><br>
+    <div class="heading">WE ARE COLLABORATING WITH</div>
+    <br><br>
+
+    <div class="company-logos">
+      <img class="company-logo" src="static/image/l1.png" alt="Company Logo 1">
+      <img class="company-logo" src="static/image/l2.png" alt="Company Logo 2">
+      <img class="company-logo" src="static/image/l3.png" alt="Company Logo 3">
+      <img class="company-logo" src="static/image/l4.png" alt="Company Logo 4">
+      <img class="company-logo" src="static/image/l5.png" alt="Company Logo 5">
+      <img class="company-logo" src="static/image/l6.png" alt="Company Logo 6">
+    </div>
+    <br><br><br><br>
+    <div class="company-logos">
+      <img class="company-logo" src="static/image/l7.png" alt="Company Logo 1">
+      <img class="company-logo" src="static/image/l8.png" alt="Company Logo 2">
+      <img class="company-logo" src="static/image/l9.png" alt="Company Logo 3">
+      <img class="company-logo" src="static/image/l10.png" alt="Company Logo 4">
+      <img class="company-logo" src="static/image/l11.png" alt="Company Logo 5">
+      <img class="company-logo" src="static/image/l12.png" alt="Company Logo 6">
+    </div>
+    <div class="heading"></div>
+  </div><br><br><br>
+  <div style="background-color: rgba(237, 236, 236, 0.573);">
+    <br><br>
+    <div id="services" class="heading">Our Services</div>
+    <p style="text-align: center; font-weight: 500; font-size: 18px; color: #545151;">We provide customer satisfaction
+      and suitable account for easy quick support </p><br><br><br>
+    <div class="card-container">
+      <div class="card1">
+        <div class="image-section">
+          <img src="static/image/service1.png" alt="Service 1">
+        </div>
+        <div class="content">
+          <h3>Weekly Updation Status</h3>
+          <p>"Recap the week's achievements and the project's status as a whole. Note any milestones you achieved and
+            any major tasks you began or completed."</p><br>
+          <a href="#" class="view-more">View More</a>
+        </div>
+      </div>
+      <div class="card1">
+        <div class="image-section">
+          <img src="static/image/service2.png" alt="Service 2">
+        </div>
+        <div class="content">
+          <h3>Safe Your Data</h3>
+          <p>“Arguing that you don’t care about the right to privacy because you have nothing to hide is no different
+            than saying you don’t care about free speech because you have nothing to say.”</p><br>
+          <a href="#" class="view-more">View More</a>
+        </div>
+      </div>
+    </div>
+    <div class="card-container">
+      <div class="card1">
+        <div class="image-section">
+          <img src="static/image/service3.png" alt="Service 3">
+        </div>
+        <div class="content">
+          <h3>Online Solution</h3>
+          <p>"Any help and any needs your response while sending our website online throw. This helps to save your time
+            and urgency"</p><br>
+          <a href="#" class="view-more">View More</a>
+        </div>
+      </div>
+      <div class="card1">
+        <div class="image-section">
+          <img src="static/image/service4.png" alt="Service 4">
+        </div>
+        <div class="content">
+          <h3>Cloud Services</h3>
+          <p>“We believe we’re moving out of the Ice Age, the Iron Age, the Industrial Age, the Information Age, to the
+            participation age. You get on the Net and you do stuff."</p><br>
+          <a href="#" class="view-more">View More</a>
+        </div>
+      </div>
+    </div>
+    <div class="card-container">
+      <div class="card1">
+        <div class="image-section">
+          <img src="static/image/service5.png" alt="Service 5">
+        </div>
+        <div class="content">
+          <h3>24*7 Support</h3>
+          <p> "When you assume negative intent, you're angry. If you take away that anger and assume positive intent,
+            you will be amazed."</p><br>
+          <a href="#" class="view-more">View More</a>
+        </div>
+      </div>
+      <div class="card1">
+        <div class="image-section">
+          <img src="static/image/service6.png" alt="Service 6">
+        </div>
+        <div class="content">
+          <h3>Easy Payment Method</h3>
+          <p>"Safe the payment and your bank details and OTP etc. here. If any issue, your account will be refunded the
+            full amount."</p><br>
+          <a href="#" class="view-more">View More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br><br>
+
+  <div id="team" class="heading">Our Team</div>
+  <p style="text-align: center; font-weight: 500; font-size: 18px; color: #545151;">Each and everyone companies teams
+    are the company power and strength.we intoduce the companie strength</p><br><br><br>
+
+  <div class="card-container">
+    <div class="card2">
+      <img src="static/image/p7.jpg" alt="Image 1">
+      <h3>John Doe</h3>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+
+    <div class="card2">
+      <img src="static/image/pg.jpg" alt="Image 2">
+      <h3>Julia susan</h3>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+
+    <div class="card2">
+      <img src="static/image/p6.jpg" alt="Image 3">
+      <h3>Robert Johnson</h3>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+
+    <div class="card2">
+      <img src="static/image/ef.jpg" alt="Image 4">
+      <h3>Sara Martin</h3>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+  </div><br><br><br>
+
+  <div id="about1" class="animation-container" style="background-color: rgba(237, 236, 236, 0.573);">
+    <p id="transition-text">FOR MORE DETAILS , CLICK THE "CONTACT" OPTION. WE WILL ASSIST YOU.</p>
+  </div><br><br><br>
+
+  <div class="contact-icon" onclick="togglePopup()">
+    <i class="fas fa-headset"></i>
+  </div>
+
+  <!-- Popup -->
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h3>Call now to book:</h3>
+      <p>Phone: <strong>+91-9048289199</strong></p>
+      <i class="fas fa-phone" style="font-size:40px"></i>
+    </div>
+    <span class="popup-close" onclick="togglePopup()">&times;</span>
+  </div>
+
+  
+  <div style="background-color: #384a72;;">
+    <div class="container">
+      <!-- Footer -->
+      <footer class="text-center text-lg-start text-white" style="background-color: #384a72;">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+          <!-- Section: Links -->
+          <section class="">
+            <!--Grid row-->
+            <div class="row">
+              <!-- Grid column -->
+              <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">
+                  INTER SET
+                </h6>
+                <p>
+                  We can help you achive your any needs of information.and we will 24*7 support qukly response and solve your problem with single touch.
+                </p>
+              </div>
+              <!-- Grid column -->
+
+              <hr class="w-100 d-md-none" />
+
+              <!-- Grid column -->
+              <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+                <ul class="list-unstyled">
+                  <li>
+                    <a class="text-white">Devolope</a>
+                  </li>
+                  <li>
+                    <a class="text-white">Extract</a>
+                  </li>
+                  <li>
+                    <a class="text-white">BrandFlow</a>
+                  </li>
+                  <li>
+                    <a class="text-white">Angular</a>
+                  </li>
+                </ul>
+              </div>
+              <!-- Grid column -->
+
+              <hr class="w-100 d-md-none" />
+
+              <!-- Grid column -->
+              <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-home mr-3"></i> New York, NY 10012, US</li>
+                  <li><i class="fas fa-envelope mr-3"></i> info@gmail.com</li>
+                  <li><i class="fas fa-phone mr-3"></i> + 01 234 567 88</li>
+                  <li><i class="fas fa-print mr-3"></i> + 01 234 567 89</li>
+                </ul>
+              </div>
+              <!-- Grid column -->
+
+              <!-- Grid column -->
+              <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Follow us</h6>
+                <div class="d-flex justify-content-center">
+                  <!-- Facebook -->
+                  <a class="btn btn-primary btn-floating m-1" style="background-color: #3b5998;" href="#!"
+                    role="button"><i class="fab fa-facebook-f"></i></a>
+                  <!-- Twitter -->
+                  <a class="btn btn-primary btn-floating m-1" style="background-color: #55acee;" href="#!"
+                    role="button"><i class="fab fa-twitter"></i></a>
+                  <!-- Google -->
+                  <a class="btn btn-primary btn-floating m-1" style="background-color: #dd4b39;" href="#!"
+                    role="button"><i class="fab fa-google"></i></a>
+                  <!-- Instagram -->
+                  <a class="btn btn-primary btn-floating m-1" style="background-color: #ac2bac;" href="#!"
+                    role="button"><i class="fab fa-instagram"></i></a>
+                  <!-- Linkedin -->
+                  <a class="btn btn-primary btn-floating m-1" style="background-color: #0082ca;" href="#!"
+                    role="button"><i class="fab fa-linkedin-in"></i></a>
+                  <!-- Github -->
+                  <a class="btn btn-primary btn-floating m-1" style="background-color: #333333;" href="#!"
+                    role="button"><i class="fab fa-github"></i></a>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+          &copy; 2020 Interset.com
+        </div>
+      </footer>
+    </div><br>
+  </div>
+
+  <script>
+    // Add this JavaScript code after your existing code
+
+    const transitionText = document.getElementById('transition-text');
+    transitionText.addEventListener('click', () => {
+      // Replace the code below with your desired action
+      alert('Contact option clicked!');
+    });
+
+  </script>
+  <script>
+    // Function to handle smooth scrolling
+    function scrollToServices() {
+      var servicesSection = document.getElementById('services');
+      servicesSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Add an event listener to the Services button in the navbar
+    var servicesButton = document.querySelector('a[href="#services"]');
+    servicesButton.addEventListener('click', function (event) {
+      event.preventDefault();
+      scrollToServices();
+    });
+  </script>
+  <script>
+    // Function to handle smooth scrolling
+    function scrollToTeam() {
+      var servicesSection = document.getElementById('team');
+      servicesSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Add an event listener to the Services button in the navbar
+    var teamButton = document.querySelector('a[href="#team"]');
+    teamButton.addEventListener('click', function (event) {
+      event.preventDefault();
+      scrollToTeam();
+    });
+  </script>
+  <!-- <script>
+    // Function to handle smooth scrolling
+    function scrollToAbout() {
+      var aboutSection = document.getElementById('about');
+      aboutSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Add an event listener to the Services button in the navbar
+    var aboutButton = document.querySelector('a[href="#about"]');
+    aboutButton.addEventListener('click', function (event) {
+      event.preventDefault();
+      scrollToAbout();
+    });
+  </script> -->
+
+  <script>
+    function togglePopup() {
+      var popup = document.getElementById("popup");
+      popup.style.display = popup.style.display === "none" ? "block" : "none";
+    }
+  </script>
+
+  <!-- Add the Bootstrap JS link -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <script>
+    $(document).ready(function () {
+      $('.navbar-toggler').click(function () {
+        $('.navbar-collapse').collapse('toggle');
+      });
+    });
+  </script>
+
+</body>
+</html>

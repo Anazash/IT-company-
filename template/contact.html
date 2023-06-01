@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>My Website</title>
+</head>
+<style>
+  /* Custom CSS */
+  .navbar {
+    background-color: #013456;
+    padding: 30px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+  }
+
+  .nav-link {
+    color: #fff;
+    transition: color 0.3s;
+    border-right: 1px solid rgb(179, 175, 175);
+    font-weight: bold;
+  }
+
+  .nav-link:hover {
+    color: #ffc107;
+    transform: scale(1.1);
+  }
+
+  /* Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .nav-item {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .logo {
+    max-height: 35px;
+    /* Adjust the height as needed */
+    transition: transform 0.3s ease-in-out;
+    /* Animation transition */
+  }
+
+  .logo:hover {
+    transform: rotate(360deg);
+    /* Example animation, modify as desired */
+  }
+
+.container {
+    text-align: center;
+  }
+  
+  .heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    position: relative;
+    color: #ced4da;
+  }
+  
+  .heading::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 2px;
+    background-color: #ffc107;
+    transition: width 0.3s;
+  }
+  
+  .heading:hover::after {
+    width: 100px;
+  }
+  
+  .contact-form {
+    margin-top: 50px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .contact-form label {
+    font-weight: bold;
+  }
+  
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    margin-bottom: 10px;
+  }
+  
+  .contact-form button {
+    background-color: #0b4063a0;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .contact-form button:hover {
+    background-color: #ffc107;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: modalFadeIn 0.5s;
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    animation: modalSlideIn 0.5s;
+  }
+  
+  .modal h3 {
+    margin-top: 0;
+  }
+  
+  @keyframes modalFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes modalSlideIn {
+    from {
+      transform: translateY(-50px);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  
+  .map-container {
+    margin-top: 50px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .map-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .map-container:hover .map-overlay {
+    opacity: 1;
+  }
+  .checkout{
+    margin-right:30px;
+    color:rgba(255, 255, 255, 0.586);
+    text-align: center;
+  }
+  @media screen and (max-width:768px){
+    .map-container{
+    display:block;
+    margin:20px;
+    }
+  }
+  
+</style>
+
+<body style="background-color:  #110f16;">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="static/image/za.png" alt="Logo" class="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'portfolio' %}">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#team">Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blog' %}">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fab fa-facebook"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fab fa-twitter"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fab fa-instagram"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav><br><br><br><br><br><br><br>
+
+    <div class="container">
+        <h2 class="heading">Keep in Touch</h2>
+        <div class="contact-form">
+            <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea class="form-control" id="message" rows="5" placeholder="Enter your message"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" onclick="showModal()">Send</button>
+            </form>
+        </div>
+    </div>
+  
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h3>Thanks, we will contact you shortly.</h3>
+        </div>
+    </div>
+
+    <div class="map-container">
+      <h3 class="checkout">Checkout this map <br> to know about our <br> location ➡️</h3>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387105.8352566994!2d-74.25987313667882!3d40.69714942294354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1563312394119!5m2!1sen!2sin" 
+            width="600" height="450" frameborder="0" style="border:0;margin-bottom:50px;" allowfullscreen></iframe>
+       
+    </div>
+
+   
+
+<div style="background-color: #384a72;;">
+  <div class="container">
+    <!-- Footer -->
+    <footer class="text-center text-lg-start text-white" style="background-color: #384a72;">
+      <!-- Grid container -->
+      <div class="container p-4 pb-0">
+        <!-- Section: Links -->
+        <section class="">
+          <!--Grid row-->
+          <div class="row">
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+              <h6 class="text-uppercase mb-4 font-weight-bold">
+                INTER SET
+              </h6>
+              <p>
+                We can help you achive your any needs of information.and we will 24*7 support qukly response and solve your problem with single touch.
+              </p>
+            </div>
+            <!-- Grid column -->
+
+            <hr class="w-100 d-md-none" />
+
+            <!-- Grid column -->
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+              <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+              <ul class="list-unstyled">
+                <li>
+                  <a class="text-white">Devolope</a>
+                </li>
+                <li>
+                  <a class="text-white">Extract</a>
+                </li>
+                <li>
+                  <a class="text-white">BrandFlow</a>
+                </li>
+                <li>
+                  <a class="text-white">Angular</a>
+                </li>
+              </ul>
+            </div>
+            <!-- Grid column -->
+
+            <hr class="w-100 d-md-none" />
+
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+              <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+              <ul class="list-unstyled">
+                <li><i class="fas fa-home mr-3"></i> New York, NY 10012, US</li>
+                <li><i class="fas fa-envelope mr-3"></i> info@gmail.com</li>
+                <li><i class="fas fa-phone mr-3"></i> + 01 234 567 88</li>
+                <li><i class="fas fa-print mr-3"></i> + 01 234 567 89</li>
+              </ul>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+              <h6 class="text-uppercase mb-4 font-weight-bold">Follow us</h6>
+              <div class="d-flex justify-content-center">
+                <!-- Facebook -->
+                <a class="btn btn-primary btn-floating m-1" style="background-color: #3b5998;" href="#!"
+                  role="button"><i class="fab fa-facebook-f"></i></a>
+                <!-- Twitter -->
+                <a class="btn btn-primary btn-floating m-1" style="background-color: #55acee;" href="#!"
+                  role="button"><i class="fab fa-twitter"></i></a>
+                <!-- Google -->
+                <a class="btn btn-primary btn-floating m-1" style="background-color: #dd4b39;" href="#!"
+                  role="button"><i class="fab fa-google"></i></a>
+                <!-- Instagram -->
+                <a class="btn btn-primary btn-floating m-1" style="background-color: #ac2bac;" href="#!"
+                  role="button"><i class="fab fa-instagram"></i></a>
+                <!-- Linkedin -->
+                <a class="btn btn-primary btn-floating m-1" style="background-color: #0082ca;" href="#!"
+                  role="button"><i class="fab fa-linkedin-in"></i></a>
+                <!-- Github -->
+                <a class="btn btn-primary btn-floating m-1" style="background-color: #333333;" href="#!"
+                  role="button"><i class="fab fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+        &copy; 2020 Interset.com
+      </div>
+    </footer>
+  </div><br>
+</div>
+
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+      const navbar = document.querySelector('.navbar');
+      navbar.classList.add('scrolled');
+  });
+</script>
+
+<script>
+    function showModal() {
+      var modal = document.getElementById("modal");
+      modal.style.display = "block";
+    }
+  
+    window.onclick = function (event) {
+      var modal = document.getElementById("modal");
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+  
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0zr2n4ShDTkqt2rRy6Z5qTq8m8c2Jo8yb9Zjql4y4KS5C6lgBvfdceltQ6B" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+Q4yA2z" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</body>
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>My Website</title>
+</head>
+<style>
+    /* Custom CSS */
+    .navbar {
+        background-color: #013456;
+        padding: 30px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9999;
+    }
+
+    .nav-link {
+        color: #fff;
+        transition: color 0.3s;
+        border-right: 1px solid rgb(179, 175, 175);
+        font-weight: bold;
+    }
+
+    .nav-link:hover {
+        color: #ffc107;
+        transform: scale(1.1);
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .nav-item {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .navbar-nav{
+        text-align: initial;
+    }
+
+    .logo {
+        max-height: 35px;
+        /* Adjust the height as needed */
+        transition: transform 0.3s ease-in-out;
+        /* Animation transition */
+    }
+
+    .logo:hover {
+        transform: rotate(360deg);
+        /* Example animation, modify as desired */
+    }
+
+    .container {
+        text-align: center;
+    }
+
+    .heading {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        position: relative;
+        color: #ced4da;
+    }
+
+    .heading::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 2px;
+        background-color: #ffc107;
+        transition: width 0.3s;
+    }
+
+    .heading:hover::after {
+        width: 100px;
+    }
+
+    .about-details {
+        color: #fff;
+        font-size: 18px;
+        line-height: 1.6;
+        margin-top: 30px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .about-details.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .review-section {
+        background-color: #110f16;
+        padding: 50px 0;
+        text-align: center;
+      }
+    
+      .review-heading {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: rgba(255, 255, 255, 0.551);
+      }
+    
+      .review-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+    
+      .review-card {
+        width: 300px;
+        margin: 20px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        text-align: left;
+        transition: transform 0.3s;
+      }
+      .review-card {
+        position: relative;
+        display: inline-block;
+        width: 300px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .review-image {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+      
+      .review-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    
+      .review-card:hover {
+        transform: translateY(-5px);
+      }
+    
+      .review-card .review-rating {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+    
+      .review-card .review-rating i {
+        color: #ffc107;
+        margin-right: 5px;
+      }
+    
+      .review-card .review-text {
+        color: #6c757d;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+    
+      .review-card .review-author {
+        font-size: 14px;
+        color: #6c757d;
+      }
+</style>
+<body style="background-color: #110f16;">
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="static/image/za.png" alt="Logo" class="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#services">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'portfolio' %}">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#team">Team</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blog' %}">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'signup' %}">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fab fa-facebook"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fab fa-twitter"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fab fa-instagram"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br><br><br><br><br><br><br>
+
+<div class="container">
+    <h2 class="heading">About Us</h2>
+    <p class="about-details">Welcome to InterSet, a leading IT company at the forefront of innovation and technology solutions. With a strong commitment to excellence, we strive to empower businesses and organizations worldwide by providing cutting-edge IT services and solutions tailored to their unique needs.
+
+        At InterSet, we understand the ever-evolving nature of the digital landscape and the vital role technology plays in shaping the success of businesses. With our team of highly skilled professionals and deep expertise across a wide range of industries, we are dedicated to delivering top-notch IT solutions that drive growth, efficiency, and competitiveness.
+        
+        Our Mission:
+        Our mission is to empower businesses to harness the power of technology to achieve their goals. We aim to provide comprehensive IT solutions that enable organizations to enhance their operations, optimize processes, and elevate customer experiences. By combining our technical expertise with a customer-centric approach, we strive to build long-term partnerships and contribute to the success of our clients.
+        
+        Our Services:
+        We offer a comprehensive suite of IT services designed to meet the diverse needs of businesses across various industries. From software development and cybersecurity to cloud computing and data analytics, our services are crafted to deliver measurable results and drive digital transformation. Our team of experienced professionals is dedicated to staying up-to-date with the latest technological advancements, ensuring that our clients benefit from state-of-the-art solutions.
+        
+        Why Choose InterSet:
+        
+        Expertise: Our team consists of highly skilled professionals with extensive experience in their respective domains. We bring a wealth of knowledge and technical know-how to deliver exceptional results.
+        Tailored Solutions: We understand that each business is unique. That's why we take a personalized approach, working closely with our clients to understand their specific requirements and tailor solutions that align with their goals.
+        Innovation: We stay ahead of the curve by embracing innovation and staying abreast of the latest technological advancements. We constantly explore emerging trends to provide our clients with the most effective and future-proof solutions.
+        Customer Satisfaction: We place a strong emphasis on customer satisfaction. We strive to exceed our clients' expectations, delivering high-quality services, timely support, and exceptional value.
+        Integrity and Transparency: Our business is built on integrity and transparency. We foster open communication and maintain the highest ethical standards, ensuring that our clients can trust us to deliver on our promises.
+        Whether you are a small startup or a large enterprise, InterSet is committed to helping you leverage technology to achieve your business objectives. Partner with us, and together, we will navigate the digital landscape, unleash your potential, and pave the way for your success.</p>
+</div>
+
+<br><br><br>
+<div class="review-section">
+    <div class="container">
+        <h2 class="heading">Customer Reviews</h2>
+    <div class="review-container">
+        <div class="review-card">
+          <div class="review-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <div class="review-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+          <div class="review-author">- John Doe</div>
+          <div class="review-image">
+            <img src="static/image/p7.jpg" alt="Image" />
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="review-text">Praesent ut diam nunc. Nullam a volutpat justo, sed tristique nulla.</div>
+          <div class="review-author">- Jane Smith</div>
+          <div class="review-image">
+            <img src="static/image/p6.jpg" alt="Image" />
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+            <i class="far fa-star"></i>
+          </div>
+          <div class="review-text">Nam nec tellus congue, porttitor risus sed, gravida ligula.</div>
+          <div class="review-author">- Alisha Thomas</div>
+          <div class="review-image">
+            <img src="static/image/ef.jpg" alt="Image" />
+          </div>
+        </div>
+        <div class="review-card">
+            <div class="review-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+              <i class="fas fa-star-half-alt"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <div class="review-text">Praesent ut diam nunc. Nullam a volutpat justo, sed tristique nulla.</div>
+            <div class="review-author">- Ann maria</div>
+            <div class="review-image">
+                <img src="static/image/pg.jpg" alt="Image" />
+              </div>
+          </div>
+          <div class="review-card">
+            <div class="review-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <div class="review-text">Praesent ut diam nunc. Nullam a volutpat justo, sed tristique nulla.</div>
+            <div class="review-author">- Sanjay</div>
+            <div class="review-image">
+                <img src="static/image/p6.jpg" alt="Image" />
+              </div>
+          </div>
+          <div class="review-card">
+            <div class="review-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <div class="review-text">Praesent ut diam nunc. Nullam a volutpat justo, sed tristique nulla.</div>
+            <div class="review-author">-robin</div>
+            <div class="review-image">
+              <img src="static/image/p7.jpg" alt="Image" />
+            </div>
+          </div>
+          
+      </div>
+    </div>
+  </div>
+    <div style="background-color: #384a72;;">
+        <div class="container">
+            <!-- Footer -->
+            <footer class="text-center text-lg-start text-white" style="background-color: #384a72;">
+                <!-- Grid container -->
+                <div class="container p-4 pb-0">
+                    <!-- Section: Links -->
+                    <section class="">
+                        <!--Grid row-->
+                        <div class="row">
+                            <!-- Grid column -->
+                            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                                <h6 class="text-uppercase mb-4 font-weight-bold">
+                                    INTER SET
+                                </h6>
+                                <p>
+                                    We can help you achive your any needs of information.and we will 24*7 support qukly response and solve your problem with single touch.
+                                </p>
+                            </div>
+                            <!-- Grid column -->
+
+                            <hr class="w-100 d-md-none" />
+
+                            <!-- Grid column -->
+                            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                                <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a class="text-white">Devolope</a>
+                                    </li>
+                                    <li>
+                                        <a class="text-white">Extract</a>
+                                    </li>
+                                    <li>
+                                        <a class="text-white">BrandFlow</a>
+                                    </li>
+                                    <li>
+                                        <a class="text-white">Angular</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Grid column -->
+
+                            <hr class="w-100 d-md-none" />
+
+                            <!-- Grid column -->
+                            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                                <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-home mr-3"></i> New York, NY 10012, US</li>
+                                    <li><i class="fas fa-envelope mr-3"></i> info@gmail.com</li>
+                                    <li><i class="fas fa-phone mr-3"></i> + 01 234 567 88</li>
+                                    <li><i class="fas fa-print mr-3"></i> + 01 234 567 89</li>
+                                </ul>
+                            </div>
+                            <!-- Grid column -->
+
+                            <!-- Grid column -->
+                            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                                <h6 class="text-uppercase mb-4 font-weight-bold">Follow us</h6>
+                                <div class="d-flex justify-content-center">
+                                    <!-- Facebook -->
+                                    <a class="btn btn-primary btn-floating m-1" style="background-color: #3b5998;"
+                                        href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
+                                    <!-- Twitter -->
+                                    <a class="btn btn-primary btn-floating m-1" style="background-color: #55acee;"
+                                        href="#!" role="button"><i class="fab fa-twitter"></i></a>
+                                    <!-- Google -->
+                                    <a class="btn btn-primary btn-floating m-1" style="background-color: #dd4b39;"
+                                        href="#!" role="button"><i class="fab fa-google"></i></a>
+                                    <!-- Instagram -->
+                                    <a class="btn btn-primary btn-floating m-1" style="background-color: #ac2bac;"
+                                        href="#!" role="button"><i class="fab fa-instagram"></i></a>
+                                    <!-- Linkedin -->
+                                    <a class="btn btn-primary btn-floating m-1" style="background-color: #0082ca;"
+                                        href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
+                                    <!-- Github -->
+                                    <a class="btn btn-primary btn-floating m-1" style="background-color: #333333;"
+                                        href="#!" role="button"><i class="fab fa-github"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+                    &copy; 2020 Interset.com
+                </div>
+            </footer>
+        </div><br>
+    </div>
+
+
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const navbar = document.querySelector('.navbar');
+            navbar.classList.add('scrolled');
+        });
+    </script>
+
+    <script>
+        function showModal() {
+            var modal = document.getElementById("modal");
+            modal.style.display = "block";
+        }
+
+        window.onclick = function (event) {
+            var modal = document.getElementById("modal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
+    <script>
+        // Add animation class to the about details when the page loads
+        window.addEventListener("load", function () {
+            const aboutDetails = document.querySelectorAll(".about-details");
+            aboutDetails.forEach(function (detail) {
+                detail.classList.add("show");
+            });
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0zr2n4ShDTkqt2rRy6Z5qTq8m8c2Jo8yb9Zjql4y4KS5C6lgBvfdceltQ6B"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+Q4yA2z"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</body>
+</html>
